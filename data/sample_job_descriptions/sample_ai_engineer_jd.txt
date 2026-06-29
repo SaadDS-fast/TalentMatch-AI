@@ -1,0 +1,21 @@
+AI Engineer Intern
+TalentMatch Demo Labs
+
+Requirements
+- Python, SQL, NumPy, Pandas, scikit-learn, Machine Learning
+- Natural Language Processing, Transformers, PyTorch or TensorFlow exposure
+- FastAPI or REST API development for model-serving workflows
+- Docker or basic deployment experience
+- Ability to evaluate model performance and explain technical tradeoffs
+
+Responsibilities
+- Build and evaluate machine learning prototypes for recruiter intelligence workflows
+- Develop lightweight FastAPI endpoints for AI model inference
+- Prepare clean datasets, feature pipelines, and model evaluation reports
+- Collaborate with backend engineers to containerize model demos using Docker
+- Communicate findings clearly to technical and non-technical stakeholders
+
+Qualifications
+- Final-year student, fresh graduate, or early-career candidate in Computer Science, AI, Data Science, or related field
+- Academic project, internship, or portfolio experience in ML, NLP, or backend development
+- Strong Python fundamentals and willingness to learn production ML practices

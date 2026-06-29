@@ -1,0 +1,32 @@
+Demo Candidate
+Email: demo.candidate@example.com
+Phone: +1 555 010 2040
+GitHub: github.com/demo-candidate-ai
+
+Profile
+Entry-level AI and Data Science candidate with academic machine learning, NLP, and backend API project experience. Interested in building reliable AI systems for recruiter intelligence and analytics workflows.
+
+Education
+MS Data Science, Demo University
+BS Computer Science, Demo Institute
+
+Technical Skills
+Python, SQL, NumPy, Pandas, scikit-learn, Machine Learning, Natural Language Processing, NLP, PyTorch, TensorFlow, Transformers, FastAPI, Docker, Git, Data Visualization, Model Evaluation
+
+Teaching Experience
+Mathematics Teaching Assistant
+Oct 2024-Present
+Explained statistics, analytical reasoning, and structured problem-solving to undergraduate students.
+
+Academic Projects
+Regime-Aware Stock Portfolio Optimization
+Built a Python machine learning pipeline using Pandas, NumPy, scikit-learn, feature engineering, and model evaluation.
+
+Explainable CNN for Brain Tumor Classification
+Created a deep learning workflow using PyTorch and TensorFlow concepts, with explainability notes for model behavior.
+
+Multimodal Speech Summarization
+Explored Natural Language Processing, Transformers, embeddings, and summary evaluation for speech-to-text outputs.
+
+Backend / Deployment Evidence
+Built FastAPI prototype endpoints for AI inference and containerized experiments with Docker for reproducible demos.

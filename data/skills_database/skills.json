@@ -1,0 +1,81 @@
+{
+  "programming_languages": [
+    "Python",
+    "SQL",
+    "Java",
+    "C++",
+    "JavaScript",
+    "TypeScript",
+    "R",
+    "MATLAB"
+  ],
+  "data_science": [
+    "Pandas",
+    "NumPy",
+    "scikit-learn",
+    "Feature Engineering",
+    "Data Cleaning",
+    "Data Visualization",
+    "Exploratory Data Analysis",
+    "Model Evaluation",
+    "Statistics",
+    "Machine Learning",
+    "Time Series Analysis"
+  ],
+  "deep_learning_ai": [
+    "PyTorch",
+    "TensorFlow",
+    "Keras",
+    "Transformers",
+    "Natural Language Processing",
+    "NLP",
+    "Computer Vision",
+    "LLM",
+    "Generative AI",
+    "RAG",
+    "Embeddings",
+    "Vector Database",
+    "LangChain",
+    "OpenAI API",
+    "Gemini API"
+  ],
+  "databases": [
+    "MySQL",
+    "PostgreSQL",
+    "SQLite",
+    "MongoDB",
+    "ChromaDB",
+    "FAISS"
+  ],
+  "backend_deployment": [
+    "FastAPI",
+    "Flask",
+    "Django",
+    "REST API",
+    "API Development",
+    "Docker",
+    "Git",
+    "GitHub",
+    "CI/CD",
+    "AWS",
+    "Azure",
+    "GCP"
+  ],
+  "business_intelligence": [
+    "Power BI",
+    "Tableau",
+    "Excel",
+    "DAX",
+    "Dashboarding",
+    "Business Analytics",
+    "KPI Reporting"
+  ],
+  "soft_skills": [
+    "Communication",
+    "Problem Solving",
+    "Analytical Thinking",
+    "Teamwork",
+    "Leadership",
+    "Presentation Skills"
+  ]
+}

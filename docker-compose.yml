@@ -1,0 +1,17 @@
+version: "3.9"
+
+services:
+  talentmatch-ai:
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile
+    container_name: talentmatch-ai
+    restart: unless-stopped
+    ports:
+      - "8501:8501"
+    volumes:
+      - .:/app
+    command: >
+      streamlit run frontend/streamlit_app.py
+      --server.address=0.0.0.0
+      --server.port=8501

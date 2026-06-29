@@ -1,0 +1,85 @@
+# ===========================
+# Python
+# ===========================
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# ===========================
+# Virtual Environments
+# ===========================
+.venv/
+venv/
+env/
+ENV/
+
+# ===========================
+# Environment Variables
+# ===========================
+.env
+
+# ===========================
+# Jupyter
+# ===========================
+.ipynb_checkpoints/
+
+# ===========================
+# IDE
+# ===========================
+.vscode/
+.idea/
+
+# ===========================
+# macOS
+# ===========================
+.DS_Store
+
+# ===========================
+# Windows
+# ===========================
+Thumbs.db
+
+# ===========================
+# Logs
+# ===========================
+*.log
+
+# ===========================
+# SQLite Database
+# ===========================
+*.db
+*.sqlite3
+
+# ===========================
+# Build Files
+# ===========================
+build/
+dist/
+*.egg-info/
+
+# ===========================
+# Python Cache
+# ===========================
+.pytest_cache/
+.mypy_cache/
+
+# ===========================
+# Generated Reports
+# ===========================
+outputs/reports/*
+!outputs/reports/.gitkeep
+
+# ===========================
+# Uploaded Files
+# ===========================
+data/sample_resumes/*
+data/sample_job_descriptions/*
+!data/sample_resumes/.gitkeep
+!data/sample_job_descriptions/.gitkeep
+!data/sample_resumes/sample_resume.txt
+!data/sample_job_descriptions/sample_ai_engineer_jd.txt
+*.tmp
+*.temp
+uploads/
+frontend/.streamlit/
