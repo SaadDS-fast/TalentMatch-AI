@@ -159,17 +159,28 @@ class SemanticSimilarityEngine:
     @lru_cache(maxsize=1)
     def _load_model():
         try:
-            from huggingface_hub import snapshot_download
             from sentence_transformers import SentenceTransformer
+        except Exception as exc:
+            logger.info(
+                "SentenceTransformer package unavailable; using fallback similarity: %s",
+                exc,
+            )
+            return None
 
-            model_path = snapshot_download(
+        try:
+            return SentenceTransformer(
                 EMBEDDING_MODEL_NAME,
                 local_files_only=True,
             )
-            return SentenceTransformer(model_path)
+        except TypeError as exc:
+            logger.info(
+                "Installed SentenceTransformer does not support local-only loading; using fallback similarity: %s",
+                exc,
+            )
+            return None
         except Exception as exc:
             logger.info(
-                "SentenceTransformer model unavailable; using fallback similarity: %s",
+                "SentenceTransformer model unavailable locally; using fallback similarity: %s",
                 exc,
             )
             return None
