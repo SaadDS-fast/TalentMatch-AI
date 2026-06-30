@@ -7,6 +7,7 @@ Supports:
 """
 
 import html
+import importlib.util
 import json
 import re
 import sys
@@ -643,18 +644,27 @@ def build_html_report(result: dict) -> str:
     """
 
 
+def is_pdf_export_available() -> bool:
+    return importlib.util.find_spec("reportlab") is not None
+
+
 def build_pdf_report(result: dict) -> bytes:
-    from reportlab.lib import colors
-    from reportlab.lib.pagesizes import letter
-    from reportlab.lib.styles import getSampleStyleSheet
-    from reportlab.lib.units import inch
-    from reportlab.platypus import (
-        Paragraph,
-        SimpleDocTemplate,
-        Spacer,
-        Table,
-        TableStyle,
-    )
+    try:
+        from reportlab.lib import colors
+        from reportlab.lib.pagesizes import letter
+        from reportlab.lib.styles import getSampleStyleSheet
+        from reportlab.lib.units import inch
+        from reportlab.platypus import (
+            Paragraph,
+            SimpleDocTemplate,
+            Spacer,
+            Table,
+            TableStyle,
+        )
+    except ModuleNotFoundError as exc:
+        if exc.name and exc.name.startswith("reportlab"):
+            raise RuntimeError("PDF export requires the optional reportlab package.") from exc
+        raise
 
     buffer = BytesIO()
     document = SimpleDocTemplate(
@@ -689,7 +699,7 @@ def build_pdf_report(result: dict) -> bytes:
         ["Candidate Level", insights["candidate_level"]],
         ["Industry", ", ".join(insights["industries"])],
     ]
-    story.append(_pdf_table(candidate_rows, [1.8 * inch, 4.8 * inch]))
+    story.append(_pdf_table(candidate_rows, [1.8 * inch, 4.8 * inch], colors, Table, TableStyle))
     story.append(Spacer(1, 0.18 * inch))
 
     score_rows = [
@@ -701,7 +711,7 @@ def build_pdf_report(result: dict) -> bytes:
         ["ATS Score", f"{ats['ats_score']}%"],
     ]
     story.append(Paragraph("Scores", styles["Heading2"]))
-    story.append(_pdf_table(score_rows, [2.2 * inch, 1.4 * inch]))
+    story.append(_pdf_table(score_rows, [2.2 * inch, 1.4 * inch], colors, Table, TableStyle))
     story.append(Spacer(1, 0.18 * inch))
 
     story.append(Paragraph("Matched Skills", styles["Heading2"]))
@@ -718,7 +728,16 @@ def build_pdf_report(result: dict) -> bytes:
             for item in ats.get("ats_checklist", [])
         ]
     )
-    story.append(_pdf_table(checklist_rows, [2.0 * inch, 1.0 * inch, 3.2 * inch], has_header=True))
+    story.append(
+        _pdf_table(
+            checklist_rows,
+            [2.0 * inch, 1.0 * inch, 3.2 * inch],
+            colors,
+            Table,
+            TableStyle,
+            has_header=True,
+        )
+    )
 
     story.append(Spacer(1, 0.18 * inch))
     story.append(Paragraph("Recommendation", styles["Heading2"]))
@@ -741,11 +760,15 @@ def build_pdf_report(result: dict) -> bytes:
     return buffer.getvalue()
 
 
-def _pdf_table(rows: list[list[str]], col_widths: list[float], has_header: bool = False):
-    from reportlab.lib import colors
-    from reportlab.platypus import Table, TableStyle
-
-    table = Table(rows, colWidths=col_widths, hAlign="LEFT")
+def _pdf_table(
+    rows: list[list[str]],
+    col_widths: list[float],
+    colors,
+    table_cls,
+    table_style_cls,
+    has_header: bool = False,
+):
+    table = table_cls(rows, colWidths=col_widths, hAlign="LEFT")
     style = [
         ("GRID", (0, 0), (-1, -1), 0.25, colors.HexColor("#dbe3ee")),
         ("VALIGN", (0, 0), (-1, -1), "TOP"),
@@ -762,7 +785,7 @@ def _pdf_table(rows: list[list[str]], col_widths: list[float], has_header: bool 
                 ("FONTNAME", (0, 0), (-1, 0), "Helvetica-Bold"),
             ]
         )
-    table.setStyle(TableStyle(style))
+    table.setStyle(table_style_cls(style))
     return table
 
 
@@ -1004,7 +1027,8 @@ def render_single_result(result: dict) -> None:
 
     st.divider()
     st.markdown("### Recruiter Report Export")
-    report_cols = st.columns(3)
+    pdf_available = is_pdf_export_available()
+    report_cols = st.columns(3 if pdf_available else 2)
     with report_cols[0]:
         st.download_button(
             "Download JSON report",
@@ -1021,13 +1045,25 @@ def render_single_result(result: dict) -> None:
             "text/html",
             use_container_width=True,
         )
-    with report_cols[2]:
-        st.download_button(
-            "Download PDF report",
-            build_pdf_report(result),
-            "talentmatch_report.pdf",
-            "application/pdf",
-            use_container_width=True,
+    if pdf_available:
+        with report_cols[2]:
+            try:
+                pdf_report = build_pdf_report(result)
+            except RuntimeError:
+                st.info(
+                    "PDF export is disabled in the cloud deployment. JSON and HTML reports are available."
+                )
+            else:
+                st.download_button(
+                    "Download PDF report",
+                    pdf_report,
+                    "talentmatch_report.pdf",
+                    "application/pdf",
+                    use_container_width=True,
+                )
+    else:
+        st.info(
+            "PDF export is disabled in the cloud deployment. JSON and HTML reports are available."
         )
 
 
